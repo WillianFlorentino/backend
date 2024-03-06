@@ -1,64 +1,64 @@
 import conectar from "./Conexao.js"; //não esquecer de colocar a extensão .js no final
-import Cliente from "../Modelos/Cliente.js";
+import Evento from "../Modelos/Eventoo.js";
 //DAO - Data Access Object
-export default class ClienteDAO{
-    async gravar(cliente){
-        if (cliente instanceof Cliente){
+export default class EventooDAO{
+    async gravar(evento){
+        if (evento instanceof Evento){
             const conexao = await conectar();
-            const sql = `INSERT INTO cliente (cpf, nome, usuario, endereco, bairro,
-                         cidade, estado, telefone, idade, rg, email) 
+            const sql = `INSERT INTO eventoo (cpf, nome, cantor, endereco, bairro,
+                         cidade, estado, telefone, idade, valor_ingresso, email) 
                          values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             const parametros = [
-                cliente.cpf,
-                cliente.nome,
-                cliente.usuario,
-                cliente.endereco, 
-                cliente.bairro,
-                cliente.cidade,
-                cliente.estado,
-                cliente.telefone,
-                cliente.idade,
-                cliente.rg,
-                cliente.email
+                evento.cpf,
+                evento.nome,
+                evento.cantor,
+                evento.endereco, 
+                evento.bairro,
+                evento.cidade,
+                evento.estado,
+                evento.telefone,
+                evento.idade,
+                evento.valor_ingresso,
+                evento.email
             ];
             const [resultados, campos] = await conexao.execute(sql,parametros);
             //funcionalidade interessante oferecida pela biblioteca mysql2
-            cliente.codigo = resultados.insertId; //recupera o id gerado pelo banco de dados
+            evento.codigo = resultados.insertId; //recupera o id gerado pelo banco de dados
         }
     }
 
-    async atualizar(cliente){
-        if (cliente instanceof Cliente){
+    async atualizar(evento){
+        if (evento instanceof Evento){
             const conexao = await conectar();
-            const sql = `UPDATE cliente SET cpf = ?,
-                         nome = ?, usuario = ?, endereco = ?, bairro = ?,
+            const sql = `UPDATE eventoo SET cpf = ?,
+                         nome = ?, cantor = ?, endereco = ?, bairro = ?,
                          cidade = ?, estado = ?, telefone = ?, idade = ?,
-                         rg = ?, email = ? WHERE id = ?`;
+                         valor_ingresso = ?, email = ? WHERE id = ?`;
             const parametros = [
-                cliente.cpf,
-                cliente.nome,
-                cliente.usuario,
-                cliente.endereco,
-                cliente.bairro,
-                cliente.cidade,
-                cliente.estado,
-                cliente.telefone,
-                cliente.idade,
-                cliente.rg,
-                cliente.email,
-                cliente.codigo
+                evento.cpf,
+                evento.nome,
+                evento.cantor,
+                evento.endereco,
+                evento.bairro,
+                evento.cidade,
+                evento.estado,
+                evento.telefone,
+                evento.idade,
+                evento.valor_ingresso,
+                evento.email,
+                evento.codigo
             ];
 
             await conexao.execute(sql,parametros);
         }
     }
 
-    async excluir(cliente){
-        if (cliente instanceof Cliente){
+    async excluir(evento){
+        if (evento instanceof Evento){
             const conexao = await conectar();
-            const sql = `DELETE FROM cliente WHERE id = ?`;
+            const sql = `DELETE FROM eventoo WHERE id = ?`;
             const parametros = [
-                cliente.codigo
+                evento.codigo
             ]
             await conexao.execute(sql,parametros);
         }
@@ -72,11 +72,11 @@ export default class ClienteDAO{
         }
         let sql="";
         if (isNaN(termoDePesquisa)){ //termo de pesquina não é um número
-            sql = `SELECT * FROM cliente WHERE nome LIKE ?`; //like será um parametro
+            sql = `SELECT * FROM eventoo WHERE nome LIKE ?`; //like será um parametro
             termoDePesquisa= '%' + termoDePesquisa + '%';
         }
         else{
-            sql = `SELECT * FROM cliente WHERE id = ?`;
+            sql = `SELECT * FROM eventoo WHERE id = ?`;
         }
 
         const conexao = await conectar();
@@ -84,21 +84,21 @@ export default class ClienteDAO{
         //Utilizar os registros encontrados para criar novos objetos do tipo cliente
         let listaClientes = [];
         for (const registro of registros){
-            const cliente = new Cliente(
+            const evento = new Evento(
                 registro.id,
                 registro.cpf,
                 registro.nome,
-                registro.usuario,
+                registro.cantor,
                 registro.endereco,
                 registro.bairro,
                 registro.cidade,
                 registro.estado,
                 registro.telefone,
                 registro.idade,
-                registro.rg,
+                registro.valor_ingresso,
                 registro.email
             );
-            listaClientes.push(cliente);
+            listaClientes.push(evento);
         }
         return listaClientes;
     }

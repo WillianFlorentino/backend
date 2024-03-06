@@ -3,41 +3,41 @@
 //Em orientação a objetos uma classe possui métodos e atributos
 //atributos são características de um objeto
 //metodos são as ações que um objeto pode executar
-import ClienteDAO from "../Persistencia/ClienteDAO.js";
+import EventooDAO from "../Persistencia/EventooDAO.js";
 
-export default class Cliente {
+export default class Eventoo {
     //atributos são privados
     //somente por meio de métodos públicos é que podemos acessar os atributos de uma classe
     //em javascript definimos atributos privados usando #
     #codigo;
     #cpf;
     #nome;
-    #usuario;
+    #cantor;
     #endereco;
     #bairro;
     #cidade;
     #estado;
     #telefone;
     #idade;
-    #rg;
+    #valor_ingresso;
     #email;
 
-    constructor(codigo=0, cpf="", nome="", usuario="", endereco="", bairro="", cidade="", estado="", telefone="", idade="", rg="", email="") {
+    constructor(codigo=0, cpf="", nome="", cantor="", endereco="", bairro="", cidade="", estado="", telefone="", idade="", valor_ingresso="", email="") {
         this.#codigo = codigo;
         this.#cpf = cpf;
         this.#nome = nome;
-        this.#usuario = usuario;
+        this.#cantor = cantor;
         this.#endereco = endereco;
         this.#bairro = bairro;
         this.#cidade = cidade;
         this.#estado = estado;
         this.#telefone = telefone;
         this.#idade = idade;
-        this.#rg = rg;
+        this.#valor_ingresso = valor_ingresso;
         this.#email = email;
     }
 
-    //definir os métodos de acesso ao atributos de um cliente
+    //definir os métodos de acesso ao atributos de um cliente para area de evento
     get codigo(){
         return this.#codigo;
     }    
@@ -62,12 +62,12 @@ export default class Cliente {
         this.#nome = novoNome;
     }
 
-    get usuario(){
-        return this.#usuario;
+    get cantor(){
+        return this.#cantor;
     }
 
-    set usuario(novoUsuario){
-        this.#usuario = novoUsuario;
+    set cantor(novoCantor){
+        this.#cantor = novoCantor;
     }
 
     get endereco(){
@@ -118,12 +118,12 @@ export default class Cliente {
         this.#idade = novoIdade;
     }
 
-    get rg(){
-        return this.#rg;
+    get valor_ingresso(){
+        return this.#valor_ingresso;
     }
 
-    set rg(novoRg){
-        this.#rg = novoRg;
+    set valor_ingresso(novoValor_ingresso){
+        this.#valor_ingresso = novoValor_ingresso;
     }
 
     get email(){
@@ -134,29 +134,29 @@ export default class Cliente {
         this.#email = novoEmail;
     }
 
-    //como armazenar os clientes no banco de dados?
+   
 
     async gravar(){
-        const dao = new ClienteDAO();
+        const dao = new EventooDAO();
         await dao.gravar(this); //this pode ser compreendido com a seguinte expressão:	"grave a mim mesmo"
     }
 
     async atualizar(){
-        const dao = new ClienteDAO();
+        const dao = new EventooDAO();
         await dao.atualizar(this);
     }
 
     async excluir(){
-        const dao = new ClienteDAO();
+        const dao = new EventooDAO();
         await dao.excluir(this);
     }
 
     async consultar(termoDePesquisa){
-        const dao = new ClienteDAO();
+        const dao = new EventooDAO();
         return await dao.consultar(termoDePesquisa);
     }
 
-    //override do método toString da classe pai Object / para representar melhor o objeto cliente na saída do console.
+  // para representar melhor o objeto cliente na saída do console.
     toString(){
         return `Cliente código: ${this.#codigo} -  nome: ${this.#nome}`;
     }
@@ -166,14 +166,14 @@ export default class Cliente {
             "codigo": this.#codigo,
             "cpf": this.#cpf,
             "nome": this.#nome,
-            "usuario": this.#usuario,
+            "cantor": this.#cantor,
             "endereco": this.#endereco,
             "bairro": this.#bairro,
             "cidade": this.#cidade,
             "estado": this.#estado,
             "telefone": this.#telefone,
             "idade": this.#idade,
-            "rg": this.#rg,
+            "valor_ingresso": this.#valor_ingresso,
             "email": this.#email
         }
     }
