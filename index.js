@@ -61,5 +61,5 @@ app.use(express.urlencoded({ extended: true})); //ensinar o express a tirar da u
 
 app.use('/clientes',rotaCliente);
 app.listen(porta, host, () => {
-    console.log('Servidor rodando em http://${host}:${porta}');
+    console.log(`Servidor rodando em http://${host}:${porta}`);
 });

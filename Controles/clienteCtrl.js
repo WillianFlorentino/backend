@@ -29,7 +29,7 @@ export default class ClienteCtrl{
 
             //pseudo validação
             if (cpf && nome && cantor && endereco && bairro && cidade && estado && telefone && idade && valor_ingresso && email){
-                const cliente = new ClienteCtrl(0, cpf, nome, cantor, endereco, bairro, cidade, estado, telefone, idade, valor_ingresso, email);
+                const cliente = new Eventoo(0, cpf, nome, cantor, endereco, bairro, cidade, estado, telefone, idade, valor_ingresso, email);
                 cliente.gravar().then(()=>{  //arrow function ou função anonima
                     resposta.status(201);
                     resposta.json({

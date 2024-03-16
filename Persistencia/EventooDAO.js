@@ -71,7 +71,7 @@ export default class EventooDAO{
             termoDePesquisa = "";
         }
         let sql="";
-        if (isNaN(termoDePesquisa)){ //termo de pesquina não é um número
+        if (isNaN(parseInt(termoDePesquisa))){ //termo de pesquina não é um número
             sql = `SELECT * FROM eventoo WHERE nome LIKE ?`; //like será um parametro
             termoDePesquisa= '%' + termoDePesquisa + '%';
         }
