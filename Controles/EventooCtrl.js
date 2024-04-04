@@ -1,7 +1,7 @@
 import Eventoo from "../Modelos/Eventoo.js";
 
 
-export default class ClienteCtrl{
+export default class EventooCtrl{
 
     //Essa classe terá responsabilidade de traduzir pedidos http em comando internos da aplicação.
     //A minha aplicação sabe gravar, atualizar, excluir e consultar clientes no banco de dados. (Vamos compartilhar essa função na internet).
@@ -117,44 +117,45 @@ export default class ClienteCtrl{
     }
 
     excluir(requisicao, resposta){
-        resposta.type('application/json');
-        if (requisicao.method === "DELETE"){
-            //o código do cliente que será excluído será extraído da URL
-            const codigo = requisicao.params.codigo;
-            if (codigo && codigo > 0){
-                const cliente = new Eventoo(codigo);
-                cliente.excluir()
-                .then(()=>{
-                    resposta.status(200);
-                    resposta.json({
-                        "status":true,
-                        "mensagem": "Cliente excluído com sucesso!!",
-                    })
+    resposta.type('application/json');
+    if (requisicao.method === "DELETE"){
+        // o código do evento que será excluído será extraído da URL
+        const codigo = requisicao.params.codigo;
+        if (codigo && codigo > 0){
+            const evento = new Eventoo(codigo);
+            evento.excluir()
+            .then(()=>{
+                resposta.status(200);
+                resposta.json({
+                    "status":true,
+                    "mensagem": "Evento excluído com sucesso!!",
                 })
-                .catch((erro) =>{
-                    resposta.status(500);
-                    resposta.json({
-                        "status":false,
-                        "mensagem": "Não foi possível excluir o cliente!!" + erro.message
-                    })
-                })
-            }
-            else{
-                resposta.status(400);
+            })
+            .catch((erro) =>{
+                resposta.status(500);
                 resposta.json({
                     "status":false,
-                    "mensagem": "Favor informar o código do cliente que deseja excluir conforme documentação da API"
+                    "mensagem": "Não foi possível excluir o evento!!" + erro.message
                 })
-            }
+            })
         }
         else{
-            resposta.status(405);
+            resposta.status(400);
             resposta.json({
                 "status":false,
-                "mensagem": "Requisição inválida. Favor usar o método DELETE para excluir um cliente"
+                "mensagem": "Favor informar o código do evento que deseja excluir conforme documentação da API"
             })
         }
     }
+    else{
+        resposta.status(405);
+        resposta.json({
+            "status":false,
+            "mensagem": "Requisição inválida. Favor usar o método DELETE para excluir um evento"
+        })
+    }
+}
+
 
     consultar(requisicao, resposta){
         resposta.type('application/json');
