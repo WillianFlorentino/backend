@@ -34,7 +34,7 @@ export default class EventooCtrl{
                     resposta.status(201);
                     resposta.json({
                         "status":true,
-                        "mensagem": "Cliente gravado com sucesso!",
+                        "mensagem": "Evento gravado com sucesso!",
                         "codigo_cliente": cliente.codigo
                     })
                 })
@@ -50,7 +50,7 @@ export default class EventooCtrl{
                 resposta.status(400);
                 resposta.json({
                     "status":false,
-                    "mensagem": "Favor informar todos os dados do cliente, conforme documentação da API"
+                    "mensagem": "Favor informar todos os dados do Evento, conforme documentação da API"
                 });
             }   
       }
@@ -58,7 +58,7 @@ export default class EventooCtrl{
         resposta.status(400);
         resposta.json({
             "status":false,
-            "mensagem": "Requisição inválida! Esperando o método POST e dados no formato JSON, para gravar um CLIENTE!"
+            "mensagem": "Requisição inválida! Esperando o método POST e dados no formato JSON, para gravar um Evento!"
         })
       }
   }
@@ -88,14 +88,14 @@ export default class EventooCtrl{
                     resposta.status(200);
                     resposta.json({
                         "status":true,
-                        "mensagem": "Cliente atualizado com sucesso!!",
+                        "mensagem": "Evento atualizado com sucesso!!",
                     })
                 })
                 .catch((erro) =>{
                     resposta.status(500);
                     resposta.json({
                         "status":false,
-                        "mensagem": "Não foi possível atualizar o Cliente!!" + erro.message
+                        "mensagem": "Não foi possível atualizar o Evento!!" + erro.message
                     })
                 });
             }
@@ -103,7 +103,7 @@ export default class EventooCtrl{
                 resposta.status(400);
                 resposta.json({
                     "status":false,
-                    "mensagem": "Informe todos os dados do cliente, conforme documentação da API"
+                    "mensagem": "Informe todos os dados do evento, conforme documentação da API"
                 })
             }
         }
@@ -171,7 +171,7 @@ export default class EventooCtrl{
                 resposta.status(500);
                 resposta.json({
                     "status":false,
-                    "mensagem": "Não foi possível consultar os clientes" + erro.message
+                    "mensagem": "Não foi possível consultar os eventos" + erro.message
                 })
             })
         }
